@@ -660,7 +660,6 @@ pipeline {
 	agent any
 	environment {
 		
-		WORKSPACE='dev'
 		GIT_ACCOUNT='johnpcarter'
 		GIT_REPO='devops-demo'
 
