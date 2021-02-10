@@ -413,6 +413,10 @@ def linkApiWithApp(apigwUrl, apiRef, appRef) {
 
 	def reqContent = readJSON file: '', text: "${response.content}"
 
+	if (reqContent.apiIDs == null) {
+		reqContent.apiIDs = []
+	}
+	
 	reqContent.apiIDs = reqContent.apiIDs << apiRef
 
 	println("will resend "+reqContent.toString())
