@@ -1,10 +1,11 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Untitled Paw Document",
-    "version": "v0.0.0"
+    "title": "Hello World",
+    "description": "The quick brown fox jumped over the lazy dog"
+    "version": "v0.0.1"
   },
-  "host": "localhost",
+  "host": "${API_HOST}",
   "schemes": [
     "http"
   ],
@@ -12,8 +13,8 @@
   "paths": {
     "/v1/hello/{name}": {
       "get": {
-        "summary": "/hello/{name}",
-        "description": "",
+        "summary": "Say hello, greeting is logged",
+        "description": "demo of state MSR, nothing is called and nothing changed",
         "operationId": "94fabbc2-074d-4185-82d1-93de60928b09",
         "responses": {
           "default": {
@@ -23,8 +24,9 @@
         "parameters": [
           {
             "type": "string",
-            "default": "",
+            "default": "Bob",
             "name": "name",
+            "description": "name of the person to be greeted",
             "required": true,
             "in": "path"
           }
@@ -33,8 +35,8 @@
     },
     "/hello/{name}": {
       "get": {
-        "summary": "/hello/{name}",
-        "description": "",
+        "summary": "Say hello, greeting is persisted to mysql",
+        "description": "Demo of MSR, with JDBC adapter and mysql DB for persistence",
         "operationId": "29f12484-1a7b-4a64-8c0e-ceb82af6061c",
         "responses": {
           "default": {
@@ -44,8 +46,9 @@
         "parameters": [
           {
             "type": "string",
-            "default": "",
+            "default": "John",
             "name": "name",
+            "description": "name of person to be greeted"
             "required": true,
             "in": "path"
           }
