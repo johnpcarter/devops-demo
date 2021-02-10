@@ -21,10 +21,10 @@ You will have to run 4 builds before success due to in script security alerts. O
 
 You can also explicity add them beforehand as below
 
-new java.io.File java.lang.String
-method java.io.File getAbsolutePath
-new java.io.File java.io.File java.lang.String
-method java.io.File list
+new java.io.File java.lang.String  
+method java.io.File getAbsolutePath  
+new java.io.File java.io.File java.lang.String  
+method java.io.File list  
 
 **API Gateway Credentials**
 
