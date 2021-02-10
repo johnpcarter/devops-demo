@@ -622,7 +622,9 @@ def checkoutAPIs(repoAccount, repo) {
 
 	def repoUrl = "https://github.com/${repoAccount}/${repo}.git"
 
-	checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'dev']], submoduleCfg: [], userRemoteConfigs: [[url: repoUrl]]])
+// relativeTargetDir is related to jenkins side, doh!
+
+	checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'src']], submoduleCfg: [], userRemoteConfigs: [[url: repoUrl]]])
 
 	//checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'src']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: "git-apis", url: repoUrl]]])
 }
@@ -720,12 +722,12 @@ pipeline {
 		}
 		stage('Deploy') {
 			environment {
-				REPO_CREDS = credentials('git-apis')
+				//REPO_CREDS = credentials('git-apis') // hard-coded below to keep jenkins setup simples!!
 			}
 			steps {
 				script {
 					
-					TST_API_IDS = deployAPIsFromGitHubToAPIGateway(APIGW_SERVER, GIT_ACCOUNT, GIT_REPO, REPO_CREDS_USR, REPO_CREDS_PSW, "${WORKSPACE}")
+					TST_API_IDS = deployAPIsFromGitHubToAPIGateway(APIGW_SERVER, GIT_ACCOUNT, GIT_REPO, "Administrator", "Password", "${WORKSPACE}")
 				}
 			}
 		}
