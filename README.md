@@ -34,3 +34,14 @@ You can also explicitly add them beforehand as below
 You will also need to declare the credentials for your API Gateway that will receive API's and act to deploy and publish them to various regions. From the jenkins pull download menu under "manage jenkins" choose "manage credentials" then click on the "Jenkins" global domain, then "global credentials". Now you can click on "add credentials"
 
 Enter the login and password associated with the API gateway and specify the id "**wm-apigateway**"
+
+### API Gateway setup
+
+Create a test app called "TestApp" under the section "Apps", this is the app that will be auto assigned to any deployed API's.
+
+Then create a promotion stage called "UAT", which will be used to deploy your API to your SaaS tenant. Click the "profile" pull down menu and select "Promotion Management". Then click "Add Stage".
+
+Name the stage "UAT" and then click on the tab "Technical Information". From here paste the end point for your SaaS API Gateway and appropriate Administrator credentials.
+
+You can now run your jenkins build to import an API, test and redeploy to your SaaS.
+
