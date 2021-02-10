@@ -1,0 +1,138 @@
+---
+swagger: "2.0"
+info:
+  description: "This is a demo API"
+  version: "1.0"
+  title: "HelloWorld"
+host: "localhost:5555"
+basePath: "/rad/jc.api:greeting"
+schemes:
+- "http"
+consumes:
+- "application/json"
+produces:
+- "application/json"
+paths:
+  /v1/hello/{name}:
+	get:
+	  description: "##### Demo service, that simply output a localised greeting for\
+		\ the given name.  \n###### version 1.0\n\n**INPUT** \n*name* - (required)\
+		\ name of person to be greeted \n\nOUTPUT\n*greeting* - localised greeting\
+		\ including name of person \n \n**EXCEPTION**\n*InvalidNameException* - triggered\
+		\ in 'xxx' given as name \n\n**HISTORY** \nVersion 3.0 (04/04/19) - JC - Update\
+		\ \n- trace is logged to custom file in resources/files \n \nVersion 1.0 (10/10/18)\
+		\ - JC - New \n- Initial rollout "
+	  operationId: "v1helloname_GET_1"
+	  parameters:
+	  - name: "name"
+		in: "path"
+		required: true
+		type: "string"
+	  responses:
+		"200":
+		  description: "OK"
+		  schema:
+			$ref: "#/definitions/v1helloname_GET_response"
+		"401":
+		  description: "Access Denied"
+  /hello/{name}:
+	get:
+	  description: "##### Demo service, that simply output a localised greeting for\
+		\ the given name.  \n###### version 2.0\n \n**INPUT** \n*name* - (required)\
+		\ name of person to be greeted \n\nOUTPUT\n*greeting* - localised greeting\
+		\ including name of person \n \n**EXCEPTION**\n*InvalidNameException* - triggered\
+		\ in 'xxx' given as name \n\n**HISTORY**\n\nVersion 4.1 (01/11/20) - JC -\
+		\ Update\nChanged id to auto-increment field\n\nVersion 4.0 (28/05/19) - JC\
+		\ - Update \n- mysql used to cached log file \n\nVersion 3.0 (04/04/19) -\
+		\ JC - Update \n- trace is logged to custom file in resources/files \n \n\
+		Version 1.0 (10/10/18) - JC - New \n- Initial rollout "
+	  operationId: "helloname_GET_2"
+	  parameters:
+	  - name: "name"
+		in: "path"
+		required: true
+		type: "string"
+	  responses:
+		"200":
+		  description: "OK"
+		  schema:
+			$ref: "#/definitions/helloname_GET_response"
+		"401":
+		  description: "Access Denied"
+  /hello/trace:
+	get:
+	  description: "##### Service to retrieve all logged greetings from db  \n######\
+		\ version 1.0\n\n**INPUT** \n*owner* - Allow filtering of messages for specific\
+		\ consumers. \n*pageSize* - Maximum number of rows to be returned. \n*page*\
+		\ - Specify which page to return. \n\n**OUTPUT**\n*pageCount* - total number\
+		\ of pages\n*messages*  \n - *id* - Uniqe id of logged message \n - *owner*\
+		\ - User id associated with consumer app \n - *message* - Logged greeting\n\
+		\ \n**EXCEPTION**\n*none* \n\n**HISTORY** \nVersion 2.0 (28/04/19) - JC -\
+		\ New \n- Initial rollout "
+	  operationId: "hellotrace_GET_3"
+	  parameters:
+	  - name: "owner"
+		in: "query"
+		required: false
+		type: "string"
+	  - name: "page"
+		in: "query"
+		required: false
+		type: "string"
+	  - name: "pageSize"
+		in: "query"
+		required: false
+		type: "string"
+	  responses:
+		"200":
+		  description: "OK"
+		  schema:
+			$ref: "#/definitions/hellotrace_GET_response"
+		"401":
+		  description: "Access Denied"
+definitions:
+  messages:
+	required:
+	- "id"
+	- "message"
+	properties:
+	  id:
+		type: "string"
+	  owner:
+		type: "string"
+	  message:
+		type: "string"
+  v1helloname_GET_response:
+	required:
+	- "greeting"
+	properties:
+	  greeting:
+		type: "string"
+  helloname_GET_response:
+	required:
+	- "containerInstance"
+	- "greeting"
+	properties:
+	  greeting:
+		type: "string"
+	  containerInstance:
+		type: "string"
+  hellotrace_GET_response:
+	required:
+	- "messages"
+	- "page"
+	- "rowCount"
+	properties:
+	  messages:
+		type: "array"
+		items:
+		  $ref: "#/definitions/messages"
+	  pageCount:
+		type: "string"
+	  rowCount:
+		type: "string"
+	  page:
+		type: "string"
+externalDocs:
+  description: "This is cool"
+  url: "http://localhost:4545/JcHelloWorld/"

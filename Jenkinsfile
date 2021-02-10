@@ -522,7 +522,7 @@ def deployAPIsFromGitHubToAPIGateway(apigwUrl, repoAccount, repo, repoUser, repo
 }
 
 // Deploys each API definition found in sub-directory '{directory}/src/apis' to API Gateway
-// assumes that the name of the API is given in the fiest part of the filename postfixed with '-' e.g. "HelloWorld-api-1.0.swagger" where "HelloWorld" is the name of the API
+// assumes that the name of the API is given in the first part of the filename postfixed with '-' e.g. "HelloWorld-api-1.0.swagger" where "HelloWorld" is the name of the API
 def deployAPIsToAPIGateway(apigwUrl, swaggerEndPoint, swaggerUser, swaggerPassword, directory) {
 
 	def dir = new File(directory)
@@ -622,7 +622,9 @@ def checkoutAPIs(repoAccount, repo) {
 
 	def repoUrl = "https://github.com/${repoAccount}/${repo}.git"
 
-	checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'src']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: "git-apis", url: repoUrl]]])
+	checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'src']], submoduleCfg: [], userRemoteConfigs: [[url: repoUrl]]])
+
+	//checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'src']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: "git-apis", url: repoUrl]]])
 }
 
 // Run test stun for given API, test stub needs to comply with name-space presented by ${TST_NAMESPACE}/${apiName}/${TST_POSTFIX}
@@ -656,8 +658,9 @@ pipeline {
 	agent any
 	environment {
 		
+		WORKSPACE='dev'
 		GIT_ACCOUNT='johnpcarter'
-		GIT_REPO='api-deployment'
+		GIT_REPO='devops-demo'
 
 		APIGW_SERVER='http://host.docker.internal:7777'
 		
