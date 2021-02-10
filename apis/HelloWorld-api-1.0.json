@@ -1,0 +1,57 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Untitled Paw Document",
+    "version": "v0.0.0"
+  },
+  "host": "localhost",
+  "schemes": [
+    "http"
+  ],
+  "basePath": "/rad/jc.api:greeting",
+  "paths": {
+    "/v1/hello/{name}": {
+      "get": {
+        "summary": "/hello/{name}",
+        "description": "",
+        "operationId": "94fabbc2-074d-4185-82d1-93de60928b09",
+        "responses": {
+          "default": {
+            "description": "no response description was provided for this operation"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "default": "",
+            "name": "name",
+            "required": true,
+            "in": "path"
+          }
+        ]
+      }
+    },
+    "/hello/{name}": {
+      "get": {
+        "summary": "/hello/{name}",
+        "description": "",
+        "operationId": "29f12484-1a7b-4a64-8c0e-ceb82af6061c",
+        "responses": {
+          "default": {
+            "description": "no response description was provided for this operation"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "default": "",
+            "name": "name",
+            "required": true,
+            "in": "path"
+          }
+        ]
+      }
+    }
+  },
+  "tags": []
+}
