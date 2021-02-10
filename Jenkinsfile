@@ -99,7 +99,7 @@ def publishAPI(apigwUrl, stage, id, portalName, communityName) {
 		//def url = jsn.stages[0].url;
 		//def name = jsn.stages[0].name;
 
-		// publish from API Gateway indicated by staging (NOT master!)
+		// publish from API Gateway indicated by staging (NOT main!)
 		url = jsn.stage.url;
 		auth = jsn.stage.name;
 
@@ -518,7 +518,7 @@ def createNewVersionForAPIForAPIGateway(apigwUrl, id, newVersion) {
 // Deploys APIs found in git source directory to API Gateway
 def deployAPIsFromGitHubToAPIGateway(apigwUrl, repoAccount, repo, repoUser, repoPassword, directory) {
 
-	return deployAPIsToAPIGateway(apigwUrl, "https://raw.githubusercontent.com/${repoAccount}/${repo}/master/apis/", repoUser, repoPassword, directory)
+	return deployAPIsToAPIGateway(apigwUrl, "https://raw.githubusercontent.com/${repoAccount}/${repo}/main/apis/", repoUser, repoPassword, directory)
 }
 
 // Deploys each API definition found in sub-directory '{directory}/src/apis' to API Gateway
@@ -622,9 +622,9 @@ def checkoutAPIs(repoAccount, repo) {
 
 	def repoUrl = "https://github.com/${repoAccount}/${repo}.git"
 
-	checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'dev']], submoduleCfg: [], userRemoteConfigs: [[url: repoUrl]]])
+	checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'dev']], submoduleCfg: [], userRemoteConfigs: [[url: repoUrl]]])
 
-	//checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'src']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: "git-apis", url: repoUrl]]])
+	//checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'src']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: "git-apis", url: repoUrl]]])
 }
 
 // Run test stun for given API, test stub needs to comply with name-space presented by ${TST_NAMESPACE}/${apiName}/${TST_POSTFIX}
