@@ -528,9 +528,9 @@ def deployAPIsToAPIGateway(apigwUrl, swaggerEndPoint, swaggerUser, swaggerPasswo
 	def dir = new File(directory)
 	def refs = [];
 
-	def files = new File(dir, "/src/apis").list()
+	println("Will upload API definitions found in :"+dir.getAbsolutePath())
 
-	println("Will upload API definitions found in :"+files.getAbsolutePath())
+	def files = new File(dir, "/src/apis").list()
 
 	files.each { file -> 
 		
