@@ -48,7 +48,7 @@
             "type": "string",
             "default": "John",
             "name": "name",
-            "description": "name of person to be greeted"
+            "description": "name of person to be greeted",
             "required": true,
             "in": "path"
           }
