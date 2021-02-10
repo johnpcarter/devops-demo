@@ -16,7 +16,8 @@ Jenkins will then pull and validate the Jenkins file.
 
 ### Build Setup
 
-**In script Permissions**
+**In script Permissions**  
+
 You will have to run 4 builds before success due to in script security alerts. On each failure click on the Jenkins pull down and under "manage jenkins" choose "in script proces approval"
 
 You can also explicitly add them beforehand as below
