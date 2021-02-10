@@ -18,7 +18,7 @@ Jenkins will then pull and validate the Jenkins file.
 
 **In script Permissions**  
 
-You will have to run 5 builds before success due to in script security alerts. On each failure click on the Jenkins pull down and under "manage jenkins" choose "in script proces approval"
+You will have to run 6 builds before success due to in script security alerts. On each failure click on the Jenkins pull down and under "manage jenkins" choose "in script proces approval"
 
 You can also explicitly add them beforehand as below
 
@@ -27,6 +27,7 @@ You can also explicitly add them beforehand as below
 *new java.io.File java.io.File java.lang.String*  
 *method java.io.File list*  
 *method groovy.lang.GString getBytes*  
+*staticMethod org.codehaus.groovy.runtime.EncodingGroovyMethods encodeBase64 byte[]*  
 
 **API Gateway Credentials**
 
