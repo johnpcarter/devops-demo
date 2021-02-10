@@ -19,13 +19,13 @@ Jenkins will then pull and validate the Jenkins file.
 **In script Permissions**
 You will have to run 4 builds before success due to in script security alerts. On each failure click on the Jenkins pull down and under "manage jenkins" choose "in script proces approval"
 
-You can also explicity add them beforehand as below
+You can also explicitly add them beforehand as below
 
-new java.io.File java.lang.String  
+*new java.io.File java.lang.String  
 method java.io.File getAbsolutePath  
 new java.io.File java.io.File java.lang.String  
 method java.io.File list  
-
+*
 **API Gateway Credentials**
 
 You will also need to declare the credentials for your API Gateway that will receive API's and act to deploy and publish them to various regions. From the jenkins pull download menu under "manage jenkins" choose "manage credentials" then click on the "Jenkins" global domain, then "global credentials". Now you can click on "add credentials"
