@@ -721,9 +721,10 @@ pipeline {
 			}
 		}
 		stage('Deploy') {
-			environment {
-				//REPO_CREDS = credentials('git-apis') // hard-coded below to keep jenkins setup simples!!
-			}
+			// hard-coded below to keep jenkins setup simples!!
+			/*environment {
+				REPO_CREDS = credentials('git-apis') 
+			}*/
 			steps {
 				script {
 					
