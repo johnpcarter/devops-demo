@@ -2,10 +2,10 @@
   "swagger": "2.0",
   "info": {
     "title": "Hello World",
-    "description": "The quick brown fox jumped over the lazy dog"
+    "description": "The quick brown fox jumped over the lazy dog",
     "version": "v0.0.1"
   },
-  "host": "localhost",
+  "host": "${API_HOST}",
   "schemes": [
     "http"
   ],
