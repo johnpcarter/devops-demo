@@ -633,7 +633,25 @@ def checkoutAPIs(repoAccount, repo) {
 	//checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'src']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: "git-apis", url: repoUrl]]])
 }
 
-// Run test stun for given API, test stub needs to comply with name-space presented by ${TST_NAMESPACE}/${apiName}/${TST_POSTFIX}
+def getTestStatus(apiContainer) {
+
+	println("Checking test status of ${apiContainer}")
+
+	def testUrl = "${apiContainer}/rad/jc.test.runner:api/ping"
+
+	response = httpRequest acceptType: 'APPLICATION_JSON', 
+				contentType: 'APPLICATION_JSON', 
+				httpMode: 'GET', 
+				ignoreSslErrors: true, 
+				url: testUrl, 
+				validResponseCodes: '200'
+				
+	jsn = readJSON file: '', text: "${response.content}"
+	
+	return JSON.status == 'COMPLETED'
+}
+
+// Run test stub for given API, test stub needs to comply with name-space presented by ${TST_NAMESPACE}/${apiName}/${TST_POSTFIX}
 def testAPI(apigwServer, testServer, apiRef) {
 
 	apiWrapper = getAPI(apigwServer, apiRef)
@@ -658,6 +676,8 @@ def testAPI(apigwServer, testServer, apiRef) {
 					ignoreSslErrors: true, 
 					url: url, 
 					validResponseCodes: '200'
+					
+					
 }
 
 pipeline {
@@ -669,9 +689,7 @@ pipeline {
 
 		APIGW_SERVER='http://host.docker.internal:7777'
 		
-		TEST_SERVER='http://host.docker.internal:4444'
-		TST_NAMESPACE= "/rest/jc/api/"
-		TST_POSTFIX="_/test"
+		API_SERVER='http://host.docker.internal:4444'
 
 		APIPORTAL="default"
 		APIPORTAL_COMMUNITY="Public Community"
@@ -694,12 +712,12 @@ pipeline {
 					
 					def esbInput = input(
 						id: 'esbInput', message: 'API & Service Containers', parameters: [
-							[$class: 'TextParameterDefinition', defaultValue: TEST_SERVER, description: 'API Runtime Container', name: 'esbServer'],
+							[$class: 'TextParameterDefinition', defaultValue: API_SERVER, description: 'API Runtime Container', name: 'esbServer'],
 							[$class: 'TextParameterDefinition', defaultValue: APIGW_SERVER, description: 'webMethods API Gateway', name: 'apiServer'],
 							[$class: 'TextParameterDefinition', defaultValue: API_STAGE, description: 'API Gatway Stage (optional)', name: 'apiStage'],
 						])
 
-					ESB_TEST_SERVER=esbInput['esbServer']
+					API_SERVER=esbInput['esbServer']
 					APIGW_SERVER=esbInput['apiServer']
 					API_STAGE=esbInput['apiStage'];
 
@@ -746,12 +764,16 @@ pipeline {
 					TST_API_IDS.each { ref ->
 
 						try {
-							println("Testing API "+ref)
+							println("Testing API Service "+ref)
+							
+							getTestStatus(API_SERVER);
+							
+							println("Test Successful, activating API "+ref)
+
 							activateAPI(APIGW_SERVER, ref)
-							
-							// testAPI(APIGW_SERVER, TEST_SERVER, ref);
-							
-							println("Test Successful, setting maturity level to Test")
+
+							println("setting maturity level to Test")
+
 							setAPIMaturity(APIGW_SERVER, ref, "Test");
 
 							PROD_API_IDS = PROD_API_IDS << ref;
@@ -760,6 +782,8 @@ pipeline {
 
 							println("Test for API "+ref+" failed with error: "+err)
 							deactivateAPI(APIGW_SERVER, ref)
+
+							setAPIMaturity(APIGW_SERVER, ref, "Failed");
 
 							FAILED_API_IDS = FAILED_API_IDS << ref
 						}
