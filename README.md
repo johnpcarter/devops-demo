@@ -14,9 +14,9 @@ Click validate to to allow Jenkins to check that the URL is good and then scroll
 
 Jenkins will then pull and validate the Jenkins file.
 
-### Build Setup
+## Jenkins Setup
 
-**In script Permissions**  
+### In script Permissions
 
 You will have to run 6 builds before success due to in script security alerts. On each failure click on the Jenkins pull down and under "manage jenkins" choose "in script proces approval"
 
@@ -29,13 +29,13 @@ You can also explicitly add them beforehand as below
 *method groovy.lang.GString getBytes*  
 *staticMethod org.codehaus.groovy.runtime.EncodingGroovyMethods encodeBase64 byte[]*  
 
-**API Gateway Credentials**
+### API Gateway Credentials**
 
 You will also need to declare the credentials for your API Gateway that will receive API's and act to deploy and publish them to various regions. From the jenkins pull download menu under "manage jenkins" choose "manage credentials" then click on the "Jenkins" global domain, then "global credentials". Now you can click on "add credentials"
 
 Enter the login and password associated with the API gateway and specify the id "**wm-apigateway**"
 
-### API Gateway setup
+## API Gateway setup
 
 Create a test app called "TestApp" under the section "Apps", this is the app that will be auto assigned to any deployed API's.
 
