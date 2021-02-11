@@ -11,7 +11,7 @@ $ docker-compose -f docker-compose.yaml up
 This will start up the following containers;
  - Jenkins
  - mysql
- - helloworld (Simple API based on webMethods Micro Service Runtime)
+ - helloworld-service (Simple API based on webMethods Micro Service Runtime)
  - webMethods micro gateway (Software AG's policity enforcement runtime for micro serviec side car operation)
  - webMethods API Gateway 10.5 (Software AG's API Mgmt portal)
  - webMethods API Gateway 10.7 
