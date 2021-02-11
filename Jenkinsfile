@@ -669,7 +669,7 @@ pipeline {
 
 		APIGW_SERVER='http://host.docker.internal:7777'
 		
-		TEST_SERVER='http://host.docker.internal:5555'
+		TEST_SERVER='http://host.docker.internal:4444'
 		TST_NAMESPACE= "/rest/jc/api/"
 		TST_POSTFIX="_/test"
 
