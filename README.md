@@ -46,7 +46,7 @@ Then create a promotion stage called "UAT", which will be used to deploy your AP
 Name the stage "UAT" and then click on the tab "Technical Information". From here paste the end point for your SaaS API Gateway and appropriate Administrator credentials.
 
 Create a routing alias to your micro service hosted API. Click the "profile" pull download menu and select "Aliases", then click on the "Add Alias" button.
-Make sure the name is set to "**API_HOST**", leave type as is and select "technical information" and type "**helloworld**" into the default value, leaving stage as blank. This alias has already been set in the "host" parameter of the original swagger document.
+Make sure the name is set to "**API_HOST**", leave type as is and select "technical information" and type "**helloworld:5555**" into the default value, leaving stage as blank. This alias has already been set in the "host" parameter of the original swagger document.
 
 
 You can now run your jenkins build to import an API, test and redeploy to your SaaS.
