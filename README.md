@@ -80,5 +80,5 @@ You will need to restart your micro-gateway in order to do the same test from yo
      -H 'Accept: application/json'
   ```
   
- **remotely**
+ **remotely**  
  If your pipeline has completed the promote step successfully they you shold be able to see your API in your SaaS tenant, in which case you can test your API via the SaaS end-point. However you will have to ensure that your local maching where you are hosting your API container is accessible via the alias **API_HOST** that you configured earlier.
