@@ -1,0 +1,71 @@
+version: '2'
+
+services: 
+  wm-api-micro: 
+    image: jcart/adeo-poc:api-microgateway-10.5
+    hostname: wm-api-micro
+    ports: 
+        - "4485:4485"
+    environment: 
+        - mcgw_microgatewayPool_microgatewayPoolName=Default
+        - mcgw_api_gateway_url=http://wm-api-gateway:5555
+        - mcgw_api_gateway_user=Administrator
+        - mcgw_api_gateway_password=manage
+        - mcgw_downloads_policies=Transaction logging,Basic Security
+        - mcgw_downloads_apis=HelloWorld
+        - mcgw_downloads_applications=TestApp
+        - mcgw_applications_sync=true
+        - mcgw_polling_interval_secs=10
+        - mcgw_faults_default_error_message=API Gateway encountered an error. Error Message $ERROR_MESSAGE, Request Details Service - $SERVICE, Operation - $OPERATION, Invocation Time $TIME , User - $USER and Application $CONSUMER_APPLICATION
+        - mcgw_extended_settings_apiKeyHeader=x-Gateway-APIKey
+        - api_server_url=http://helloworld:5555
+        - api_server_user=Administrator
+        - api_server_password=manage
+    depends_on: 
+        - "wm-api-gateway-prod"
+        - "wm-api-gateway"  
+  helloworld: 
+    image: jcart/adeo-poc:helloworld-service-1.2
+    hostname: helloworld
+    ports: 
+        - "4444:5555"
+    environment: 
+        - api_gateway_url=http://api-gateway:5555
+        - api_gateway_user=Administrator
+        - api_gateway_password=manage
+        - api_gateway_default_maturity=test
+        - api_gateway_default_app=TestApp
+        - api_gateway_allow_update=false
+        - mcgw_api_gateway_url=http://wm-api-gateway:5555
+    depends_on: 
+        - "wm-api-gateway-prod"
+        - "wm-api-gateway"  
+  wm-api-gateway-prod: 
+    image: jcart/adeo-poc:api-gateway-10.7
+    hostname: wm-api-gateway-prod
+    ports: 
+        - "3333:5555"
+        - "9092:9072"
+    depends_on: 
+        - "mysqldb"  
+  wm-api-gateway: 
+    image: jcart/adeo-poc:api-gateway-10.5
+    hostname: wm-api-gateway
+    ports: 
+        - "7777:5555"
+        - "9072:9072"
+        - "9240:9240"
+    depends_on: 
+        - "mysqldb"  
+  mysqldb: 
+    image: jcart/adeo-poc:mysql-5.7.24
+    hostname: mysqldb
+    ports: 
+        - "3306:3306"
+    volumes: 
+        - mysql_db:/var/lib/mysql
+    environment: 
+        - MYSQL_ROOT_PASSWORD=manage
+        - MYSQL_DATABASE=default 
+volumes:     
+   mysql_db:
