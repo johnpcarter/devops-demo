@@ -24,7 +24,7 @@ You can now setup your jenkins pipeline as below to import an API, test and rede
 
 ## Jenkins Setup
 
-Complete the following instructions after initial setup password (refer at docker log), creating your admin user and installing all recommended plugins.
+Complete the following instructions after initial setup password (refer at docker log), creating your admin user and installing all recommended plugins.  
 **NOTE:** project specific plugins have already included in the image.
 
 #### API Gateway Credentials
@@ -64,6 +64,6 @@ Unfortunately you will not be able to configure these rights in one go and you w
 
 You will be able to call the API once you have succeeded in running the pipeline past the deployment and test steps, try the following command from the command line to test, replacing the API key with the one for your app under API Gateway -> Applications -> TestApp.
 
-   $ curl "http://localhost:7777/gateway/HelloWorld/1/v1/hello/john" \
+   ```$ curl "http://localhost:7777/gateway/HelloWorld/1/v1/hello/john" \
      -H 'x-Gateway-APIKey: 7723bfc8-05d9-420e-bfd4-dd8ba40a128b' \
-     -H 'Accept: application/json'
+     -H 'Accept: application/json'```
