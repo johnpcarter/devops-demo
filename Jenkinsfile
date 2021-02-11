@@ -639,8 +639,7 @@ def getTestStatus(apiContainer) {
 
 	def testUrl = "${apiContainer}/rad/jc.test.runner:api/ping"
 
-	response = httpRequest acceptType: 'APPLICATION_JSON', 
-				contentType: 'APPLICATION_JSON', 
+	response = httpRequest acceptType: 'APPLICATION_JSON',  
 				httpMode: 'GET', 
 				ignoreSslErrors: true, 
 				url: testUrl, 
@@ -648,7 +647,7 @@ def getTestStatus(apiContainer) {
 				
 	jsn = readJSON file: '', text: "${response.content}"
 	
-	return JSON.status == 'COMPLETED'
+	return jsn.status == 'COMPLETED'
 }
 
 // Run test stub for given API, test stub needs to comply with name-space presented by ${TST_NAMESPACE}/${apiName}/${TST_POSTFIX}
@@ -781,7 +780,7 @@ pipeline {
 						} catch (err) {
 
 							println("Test for API "+ref+" failed with error: "+err)
-							deactivateAPI(APIGW_SERVER, ref)
+							//deactivateAPI(APIGW_SERVER, ref)
 
 							setAPIMaturity(APIGW_SERVER, ref, "Failed");
 
