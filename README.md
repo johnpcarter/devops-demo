@@ -19,6 +19,8 @@ Name the stage "UAT" and then click on the tab "Technical Information". From her
 Create a routing alias to your micro service hosted API. Click the "profile" pull download menu and select "Aliases", then click on the "Add Alias" button.
 Make sure the name is set to "**API_HOST**", leave type as is and select "technical information" and type "**helloworld:5555**" into the default value, leaving stage as blank. This alias has already been set in the "host" parameter of the original swagger document.
 
+If you want to be able to test the same API from your SaaS tenant then you will need to create an alternative end point for the above alias, ensuring that the host name or IP address refers to your local machine. You can do this from you master gateway by repeating the above paragraph, but ensuring that you select your UAT stage in the "technical information" tab. Make sure that the alias name IS the same i.e. "**API_HOST**". This will ensure that the correct alias is promoted when deploying the API to your SaaS tenant. 
+
 You can now setup your jenkins pipeline as below to import an API, test and redeploy to your SaaS.
 
 
@@ -60,8 +62,9 @@ Unfortunately you will not be able to configure these rights in one go and you w
 *method groovy.lang.GString getBytes*  
 *staticMethod org.codehaus.groovy.runtime.EncodingGroovyMethods encodeBase64 byte[]*  
 
-### Running the pipeline
+### Testing your API
 
+**locally**  
 You will be able to call the API once you have succeeded in running the pipeline past the deployment and test steps, try the following command from the command line to test, replacing the API key with the one for your app under API Gateway -> Applications -> TestApp.
 
    ```
@@ -69,3 +72,13 @@ You will be able to call the API once you have succeeded in running the pipeline
      -H 'x-Gateway-APIKey: 7723bfc8-05d9-420e-bfd4-dd8ba40a128b' \
      -H 'Accept: application/json'
    ```
+You will need to restart your micro-gateway in order to do the same test from your micro-gateway. The current instance will have no idea of your API as it was started before the API was registered with the gateway. Killing and restarting the container by re-running the docker-compose file will solve this.
+
+  ```
+  $ curl "http://localhost:4485/gateway/HelloWorld/1/v1/hello/john" \
+     -H 'x-Gateway-APIKey: 7723bfc8-05d9-420e-bfd4-dd8ba40a128b' \
+     -H 'Accept: application/json'
+  ```
+  
+ **remotely**
+ If your pipeline has completed the promote step successfully they you shold be able to see your API in your SaaS tenant, in which case you can test your API via the SaaS end-point. However you will have to ensure that your local maching where you are hosting your API container is accessible via the alias **API_HOST** that you configured earlier.
