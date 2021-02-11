@@ -1,10 +1,19 @@
 # devops-demo
 
-## Import into Jenkins
+## Jenkins Setup
 
-After running and performing basic setup tasks (make sure to install all recommended plugins), click on "New Item".
-Choose a name for your project and select "Multi-branch" pipeline to create your project.
+Complete the following instructions after initial setup password (refer at docker log), creating your admin user and installing all recommended plugins.
+**NOTE:** project specific plugins have already included in the image.
 
+#### API Gateway Credentials
+
+You will also need to declare the credentials for your API Gateway that will receive API's and act to deploy and publish them to various regions. From the jenkins pull download menu under "manage jenkins" choose "manage credentials" then click on the "Jenkins" global domain, then "global credentials". Now you can click on "add credentials"
+
+Enter the login and password associated with the API gateway and specify the id "**wm-apigateway**"
+
+#### Import pipeline into Jenkins
+
+From the jenkins home page, click "New Item", then enter a name and click "**Multibranch pipeline**".
 Fill out the form as your wish but you will need to add this repository so that the provided Jenkins file will be used.
 Under "**Branch Sources**", click "add source" and select "GitHub". Just paste the url of this repo into "Repository URL", namely "https://github.com/johnpcarter/devops-demo".
 
@@ -12,15 +21,13 @@ No credentials are required as this repository is public.
 
 Click validate to to allow Jenkins to check that the URL is good and then scroll to the bottom of the page and click "save".
 
-Jenkins will then pull and validate the Jenkins file.
-
-## Jenkins Setup
+Jenkins will then pull and validate the Jenkins file. It may take some time due to github rate limiting, you can stop the indexing build if you wish and then rebuild again if it is taking too long.
 
 ### In script Permissions
 
-You will have to run 6 builds before success due to in script security alerts. On each failure click on the Jenkins pull down and under "manage jenkins" choose "in script proces approval"
+You will get a permission error the first time you run the pipeline. You will need to update the in script permissions before the build will complete. To do click on the the Jenkins pull down and under "manage jenkins" choose "in script proces approval". This option only becomes available after running the pipeline at least once (doh!).
 
-You can also explicitly add them beforehand as below
+Unfortunately you will not be able to configure these rights in one go and you will have to add them one by one by running the pipeline 6 times!. For reference the required permissions are;
 
 *new java.io.File java.lang.String*  
 *method java.io.File getAbsolutePath*  
@@ -28,12 +35,6 @@ You can also explicitly add them beforehand as below
 *method java.io.File list*  
 *method groovy.lang.GString getBytes*  
 *staticMethod org.codehaus.groovy.runtime.EncodingGroovyMethods encodeBase64 byte[]*  
-
-#### API Gateway Credentials
-
-You will also need to declare the credentials for your API Gateway that will receive API's and act to deploy and publish them to various regions. From the jenkins pull download menu under "manage jenkins" choose "manage credentials" then click on the "Jenkins" global domain, then "global credentials". Now you can click on "add credentials"
-
-Enter the login and password associated with the API gateway and specify the id "**wm-apigateway**"
 
 ## API Gateway setup
 
