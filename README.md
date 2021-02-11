@@ -37,6 +37,8 @@ Enter the login and password associated with the API gateway and specify the id 
 
 ### API Gateway setup
 
+Go to "Policies" tab and select "**Global policies**", then enable the global policy "Transaction Logging". This will ensure that the micro gateway will log all API transactions via the API Gateway's embedded ELK.
+
 Create a test app called "TestApp" under the section "Apps", this is the app that will be auto assigned to any deployed API's.
 
 Then create a promotion stage called "UAT", which will be used to deploy your API to your SaaS tenant. Click the "profile" pull down menu and select "Promotion Management". Then click "Add Stage".
