@@ -19,7 +19,7 @@ Name the stage "UAT" and then click on the tab "Technical Information". From her
 Create a routing alias to your micro service hosted API. Click the "profile" pull download menu and select "Aliases", then click on the "Add Alias" button.
 Make sure the name is set to "**API_HOST**", leave type as is and select "technical information" and type "**helloworld:5555**" into the default value, leaving stage as blank. This alias has already been set in the "host" parameter of the original swagger document.
 
-If you want to be able to test the same API from your SaaS tenant then you will need to create an alternative end point for the above alias, ensuring that the host name or IP address refers to your local machine. You can do this from you master gateway by repeating the above paragraph, but ensuring that you select your UAT stage in the "technical information" tab. Make sure that the alias name IS the same i.e. "**API_HOST**". This will ensure that the correct alias is promoted when deploying the API to your SaaS tenant. 
+If you want to be able to test the same API from your SaaS tenant then you will need to create an alternative end point for the above alias, ensuring that the host name or IP address refers to your local machine. You can do this from THIS gateway by repeating the above paragraph, but ensuring that you select your UAT stage in the "technical information" tab. Make sure that the alias name IS the same i.e. "**API_HOST**". This will ensure that the correct alias is promoted when deploying the API to your SaaS tenant. 
 
 You can now setup your jenkins pipeline as below to import an API, test and redeploy to your SaaS.
 
