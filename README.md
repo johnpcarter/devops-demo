@@ -45,6 +45,8 @@ Click validate to to allow Jenkins to check that the URL is good and then scroll
 
 Jenkins will then pull and validate the Jenkins file. It may take some time due to github rate limiting, you can stop the indexing build if you wish and then rebuild again if it is taking too long.
 
+**NOTE:** Running the pipeline requires user input in order to override certain parameters such api host address, ports etc and also steps asking whether to continue or not. These steps are included for demo purposes only. The default parameters should work and the pauses will allow you evaluate what each step does via the API Gateway portal.
+
 ### In script Permissions
 
 You will get a permission error the first time you run the pipeline. You will need to update the in script permissions before the build will complete. To do click on the the Jenkins pull down and under "manage jenkins" choose "in script proces approval". This option only becomes available after running the pipeline at least once (doh!).
@@ -58,3 +60,9 @@ Unfortunately you will not be able to configure these rights in one go and you w
 *method groovy.lang.GString getBytes*  
 *staticMethod org.codehaus.groovy.runtime.EncodingGroovyMethods encodeBase64 byte[]*  
 
+### Running the pipeline
+
+You will be able to call the API once you have succeeded in running the pipeline past the deployment and test steps, try the following command from the command line to test, replacing the API key with the one for your app under API Gateway -> Applications -> TestApp.
+
+   curl "http://localhost:7777/gateway/HelloWorld/1/v1/hello/john" \
+        -H 'x-Gateway-APIKey: 7723bfc8-05d9-420e-bfd4-dd8ba40a128b'
