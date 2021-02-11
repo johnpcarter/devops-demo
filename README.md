@@ -1,5 +1,27 @@
 # devops-demo
 
+## API Gateway setup
+
+Create a test app called "TestApp" under the section "Apps", this is the app that will be auto assigned to any deployed API's.
+
+### Policy enforcement
+
+Go to "Policies" tab and select "**Global policies**", then enable the global policy "Transaction Logging". This will ensure that the micro gateway will log all API transactions via the API Gateway's embedded ELK.
+
+Create a second global policy by clicking on "Create global policy" and naming it "Basic Security", leave the filters and select the "policy" tab. Under the "Identify & Access" section, click "Identify & Authorize". On the right had side of the screen check "API Key" under "Identitfication Type". Click the "Save" button and activate the policy. This will mean that you will have to provide an API key as a minimum in order to invoke any API's.
+
+### Routing & Promotion
+
+Then create a promotion stage called "UAT", which will be used to deploy your API to your SaaS tenant. Click the "profile" pull down menu and select "Promotion Management". Then click "Add Stage".
+
+Name the stage "UAT" and then click on the tab "Technical Information". From here paste the end point for your SaaS API Gateway and appropriate Administrator credentials.
+
+Create a routing alias to your micro service hosted API. Click the "profile" pull download menu and select "Aliases", then click on the "Add Alias" button.
+Make sure the name is set to "**API_HOST**", leave type as is and select "technical information" and type "**helloworld:5555**" into the default value, leaving stage as blank. This alias has already been set in the "host" parameter of the original swagger document.
+
+You can now setup your jenkins pipeline as below to import an API, test and redeploy to your SaaS.
+
+
 ## Jenkins Setup
 
 Complete the following instructions after initial setup password (refer at docker log), creating your admin user and installing all recommended plugins.
@@ -35,26 +57,4 @@ Unfortunately you will not be able to configure these rights in one go and you w
 *method java.io.File list*  
 *method groovy.lang.GString getBytes*  
 *staticMethod org.codehaus.groovy.runtime.EncodingGroovyMethods encodeBase64 byte[]*  
-
-## API Gateway setup
-
-Create a test app called "TestApp" under the section "Apps", this is the app that will be auto assigned to any deployed API's.
-
-### Policy enforcement
-
-Go to "Policies" tab and select "**Global policies**", then enable the global policy "Transaction Logging". This will ensure that the micro gateway will log all API transactions via the API Gateway's embedded ELK.
-
-Create a second global policy by clicking on "Create global policy" and naming it "Basic Security", leave the filters and select the "policy" tab. Under the "Identify & Access" section, click "Identify & Authorize". On the right had side of the screen check "API Key" under "Identitfication Type". Click the "Save" button and activate the policy. This will mean that you will have to provide an API key as a minimum in order to invoke any API's.
-
-### Routing & Promotion
-
-Then create a promotion stage called "UAT", which will be used to deploy your API to your SaaS tenant. Click the "profile" pull down menu and select "Promotion Management". Then click "Add Stage".
-
-Name the stage "UAT" and then click on the tab "Technical Information". From here paste the end point for your SaaS API Gateway and appropriate Administrator credentials.
-
-Create a routing alias to your micro service hosted API. Click the "profile" pull download menu and select "Aliases", then click on the "Add Alias" button.
-Make sure the name is set to "**API_HOST**", leave type as is and select "technical information" and type "**helloworld:5555**" into the default value, leaving stage as blank. This alias has already been set in the "host" parameter of the original swagger document.
-
-
-You can now run your jenkins build to import an API, test and redeploy to your SaaS.
 
