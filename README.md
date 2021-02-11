@@ -1,6 +1,6 @@
 # devops-demo
 
-A demonstration of Software AG's webMethods API Management and Micro Service runtime, leverage Docker and Jenkins deploymento show case a CI/CD API hybrid deployment from on-premise to cloud.
+A demonstration of Software AG's webMethods API Management and Micro Service runtime, leverage Docker and Jenkins deploymen to show case a CI/CD API hybrid deployment from on-premise to cloud.
 
 ## Spin up local containers
 
