@@ -1,5 +1,21 @@
 # devops-demo
 
+A demonstration of Software AG's webMethods API Management and Micro Service runtime, leverage Docker and Jenkins deploymento show case a CI/CD API hybrid deployment from on-premise to cloud.
+
+## Spin up local containers
+
+Run the docker-compose command to start up the local containers on your machine 
+
+$ docker-compose -f docker-compose.yaml up
+
+This will start up the following containers;
+ - Jenkins
+ - mysql
+ - helloworld (Simple API based on webMethods Micro Service Runtime)
+ - webMethods micro gateway (Software AG's policity enforcement runtime for micro serviec side car operation)
+ - webMethods API Gateway 10.5 (Software AG's API Mgmt portal)
+ - webMethods API Gateway 10.7 
+ 
 ## API Gateway setup
 
 Create a test app called "TestApp" under the section "Apps", this is the app that will be auto assigned to any deployed API's.
