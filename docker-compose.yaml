@@ -21,7 +21,6 @@ services:
         - api_server_url=http://helloworld:5555
         - api_server_user=Administrator
         - api_server_password=manage
-        - mcgw_api_gateway_url=http://wm-api-gateway:5555
     depends_on: 
         - "wm-api-gateway-prod"
         - "wm-api-gateway"  
@@ -37,7 +36,6 @@ services:
         - api_gateway_default_maturity=test
         - api_gateway_default_app=TestApp
         - api_gateway_allow_update=false
-        - mcgw_api_gateway_url=http://wm-api-gateway:5555
     depends_on: 
         - "wm-api-gateway-prod"
         - "wm-api-gateway"  
