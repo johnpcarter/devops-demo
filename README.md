@@ -1,6 +1,6 @@
 # devops-demo
 
-A demonstration of Software AG's webMethods API Management and Micro Service runtime, leverage Docker and Jenkins deploymen to show case a CI/CD API hybrid deployment from on-premise to cloud.
+A demonstration of Software AG's webMethods API Management and Micro Service runtime, leverage Docker and Jenkins deployment to show case a CI/CD API hybrid deployment from on-premise to cloud.
 
 ## Spin up local containers
 
@@ -12,7 +12,7 @@ This will start up the following containers;
  - Jenkins
  - mysql
  - helloworld-service (Simple API based on webMethods Micro Service Runtime)
- - webMethods micro gateway (Software AG's policity enforcement runtime for micro serviec side car operation)
+ - webMethods micro gateway (Software AG's policity enforcement runtime for micro service side car operation)
  - webMethods API Gateway 10.5 (Software AG's API Mgmt portal)
  - webMethods API Gateway 10.7 
  
