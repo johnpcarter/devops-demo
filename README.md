@@ -2,6 +2,8 @@
 
 A demonstration of Software AG's webMethods API Management and Micro Service runtime, leverage Docker and Jenkins deployment to show case a CI/CD API hybrid deployment from on-premise to cloud.
 
+Git clone this repo to your machine, in reality the only file you need locally is the docker compose in order to start up the containers.
+
 ## Spin up local containers
 
 Run the docker-compose command to start up the local containers on your machine 
