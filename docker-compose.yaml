@@ -21,6 +21,7 @@ services:
         - api_server_url=http://helloworld:5555
         - api_server_user=Administrator
         - api_server_password=manage
+        - mcgw_api_gateway_url=http://wm-api-gateway:5555
     depends_on: 
         - "wm-api-gateway-prod"
         - "wm-api-gateway"  
@@ -57,6 +58,16 @@ services:
         - "9240:9240"
     depends_on: 
         - "mysqldb"  
+  Jenkins: 
+    image: jcart/adeo-poc:jenkins
+    hostname: Jenkins
+    ports: 
+        - "8080:8080"
+        - "50000:50000"
+    volumes: 
+        - jenkins_home:/var/jenkins_home
+    depends_on: 
+        - "mysqldb"  
   mysqldb: 
     image: jcart/adeo-poc:mysql-5.7.24
     hostname: mysqldb
@@ -66,6 +77,7 @@ services:
         - mysql_db:/var/lib/mysql
     environment: 
         - MYSQL_ROOT_PASSWORD=manage
-        - MYSQL_DATABASE=default 
+        - MYSQL_DATABASE=default
 volumes:     
+   jenkins_home:     
    mysql_db:
