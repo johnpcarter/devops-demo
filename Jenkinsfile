@@ -686,9 +686,9 @@ pipeline {
 		GIT_ACCOUNT='johnpcarter'
 		GIT_REPO='devops-demo'
 
-		APIGW_SERVER='http://host.docker.internal:7777'
+		APIGW_SERVER='http://devops-demo_wm-api-gateway_1:5555'
 		
-		API_SERVER='http://host.docker.internal:4444'
+		API_SERVER='http://devops-demo_helloworld_1:5555'
 
 		APIPORTAL="default"
 		APIPORTAL_COMMUNITY="Public Community"
